@@ -1,6 +1,8 @@
 package com.cdsoftware.requestprocessor.model;
 
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -17,6 +19,8 @@ public class CDSMailText extends MMailText {
 
 	private static final String COLUMNNAME_SUMMARY = "Summary";
 
+	private final Map<String, String> customVariables = new HashMap<>();
+
 	public CDSMailText(Properties ctx, int R_MailText_ID, String trxName) {
 		super(ctx, R_MailText_ID, trxName);
 	}
@@ -29,8 +33,17 @@ public class CDSMailText extends MMailText {
 		super(ctx, rs, trxName);
 	}
 
+	public void setCustomVariable(String name, String value) {
+		if (!Util.isEmpty(name, true))
+			customVariables.put(name, value != null ? value : "");
+	}
+
 	@Override
 	protected String parseVariable(String variable, PO po, boolean keepEscapeSequence) {
+		String customValue = customVariables.get(variable);
+		if (customValue != null)
+			return customValue;
+
 		if (isHtml() && COLUMNNAME_SUMMARY.equalsIgnoreCase(variable)) {
 			return parseSummaryAsHtml(po);
 		}

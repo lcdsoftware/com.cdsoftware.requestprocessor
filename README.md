@@ -34,10 +34,13 @@ The plugin replaces the standard `RequestProcessor` through an OSGi `IServerFact
   - `RequestAlert`
   - `RequestInactive`
   - `RequestEscalate`
+  - `RequestUpdated`
 - Native iDempiere email behavior is preserved as fallback when no template is configured.
 - HTML `R_MailText` templates are supported.
 - The `@Summary@` variable can render HTML stored in `R_Request.Summary`.
 - PDF attachment generation remains compatible with the standard processor.
+- Request update notifications can be sent with templates through the `REQUEST_SEND_EMAIL` event handler.
+- The plugin can auto-create the required partial event blacklist entry to avoid duplicate Request Updated emails.
 
 ## Instructions
 

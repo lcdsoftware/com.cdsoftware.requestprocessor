@@ -21,8 +21,10 @@ Require-Bundle: org.apache.commons.lang3,
 Import-Package: org.adempiere.server,
  org.compiere.server,
  org.osgi.service.event
-Service-Component: OSGI-INF/ModelFactory.xml,OSGI-INF/EventFactory.xml,OSGI-INF/CalloutFactory.xml,OSGI-INF/ProcessFactory.xml,OSGI-INF/FormFactory.xml,
- OSGI-INF/RequestProcessorFactory.xml
+Service-Component: OSGI-INF/ModelFactory.xml,OSGI-INF/EventFactory.xml,
+ OSGI-INF/CalloutFactory.xml,OSGI-INF/ProcessFactory.xml,
+ OSGI-INF/FormFactory.xml,OSGI-INF/RequestProcessorFactory.xml,
+ OSGI-INF/RequestEventBlacklistConfigurer.xml
 Bundle-ClassPath: .,
  lib/freemarker.jar
 Bundle-Activator: org.adempiere.plugin.utils.Incremental2PackActivator
