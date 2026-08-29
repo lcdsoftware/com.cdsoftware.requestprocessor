@@ -16,6 +16,7 @@ public class MRequestMailTemplate extends X_CDS_RequestMailTemplate {
 	public static final String EVENT_REQUEST_DUE = "RequestDue";
 	public static final String EVENT_REQUEST_ALERT = "RequestAlert";
 	public static final String EVENT_REQUEST_INACTIVE = "RequestInactive";
+	public static final String EVENT_REQUEST_ESCALATE = "RequestEscalate";
 
 	/**
 	 * Standard constructor.
@@ -85,6 +86,7 @@ public class MRequestMailTemplate extends X_CDS_RequestMailTemplate {
 	private static boolean isSupportedEvent(String eventCode) {
 		return EVENT_REQUEST_DUE.equals(eventCode)
 			|| EVENT_REQUEST_ALERT.equals(eventCode)
-			|| EVENT_REQUEST_INACTIVE.equals(eventCode);
+			|| EVENT_REQUEST_INACTIVE.equals(eventCode)
+			|| EVENT_REQUEST_ESCALATE.equals(eventCode);
 	}
 }
