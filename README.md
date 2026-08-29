@@ -6,7 +6,9 @@
 
 ## Description
 
-Put the plugin description here
+Plugin for iDempiere 13 that customizes automatic Request Processor email notifications without modifying core.
+
+The plugin replaces the standard `RequestProcessor` through an OSGi `IServerFactory` with higher service ranking and supports configurable `R_MailText` templates per request event.
 
 ## Contributors
 
@@ -25,15 +27,29 @@ Put the plugin description here
 
 ## Features/Documentation
 
-- Put the plugin feature list here
+- Custom `RequestProcessor` implementation registered from the plugin.
+- Email templates resolved from `CDS_RequestMailTemplate`.
+- Supported request events:
+  - `RequestDue`
+  - `RequestAlert`
+  - `RequestInactive`
+  - `RequestEscalate`
+- Native iDempiere email behavior is preserved as fallback when no template is configured.
+- HTML `R_MailText` templates are supported.
+- The `@Summary@` variable can render HTML stored in `R_Request.Summary`.
+- PDF attachment generation remains compatible with the standard processor.
 
 ## Instructions
 
-- Put the instructions list to install here
+1. Install the plugin in iDempiere 13.
+2. Create the `CDS_RequestMailTemplate` dictionary/table metadata.
+3. Create one or more `R_MailText` records.
+4. Create `CDS_RequestMailTemplate` records for each event that should use a custom template.
+5. Restart iDempiere or reload the Server Manager.
 
 ## Extra Links
 
-- Put the documentation/links here
+- Main plugin documentation: [com.cdsoftware.requestprocessor/README.md](com.cdsoftware.requestprocessor/README.md)
 
 ## Compile Plugin
 
