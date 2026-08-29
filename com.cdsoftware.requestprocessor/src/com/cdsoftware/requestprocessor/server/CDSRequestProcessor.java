@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.compiere.model.MMailText;
 import org.compiere.model.MRequest;
 import org.compiere.model.MRequestProcessor;
 import org.compiere.server.RequestProcessor;
@@ -12,6 +11,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Msg;
 import org.compiere.util.Util;
 
+import com.cdsoftware.requestprocessor.model.CDSMailText;
 import com.cdsoftware.requestprocessor.model.MRequestMailTemplate;
 
 public class CDSRequestProcessor extends RequestProcessor {
@@ -34,7 +34,7 @@ public class CDSRequestProcessor extends RequestProcessor {
         if (mailTextId <= 0)
             return super.sendEmail(request, AD_Message);
 
-        MMailText mailText = new MMailText(getCtx(), mailTextId, null);
+        CDSMailText mailText = new CDSMailText(getCtx(), mailTextId, null);
         if (mailText.is_new())
             return super.sendEmail(request, AD_Message);
 
