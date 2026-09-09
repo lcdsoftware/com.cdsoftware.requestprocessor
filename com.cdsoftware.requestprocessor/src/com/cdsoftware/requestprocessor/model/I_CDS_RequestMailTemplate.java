@@ -3,19 +3,20 @@ package com.cdsoftware.requestprocessor.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import org.compiere.model.MTable;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for CDS_RequestMailTemplate
  *  @author iDempiere (generated)
- *  @version Release 13
+ *  @version Release 12
  */
 public interface I_CDS_RequestMailTemplate
 {
 	/** TableName=CDS_RequestMailTemplate */
 	public static final String Table_Name = "CDS_RequestMailTemplate";
 
-	/** AD_Table_ID=1000000 */
-	public static final int Table_ID = 1000000;
+	/** AD_Table_ID */
+	public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
 	KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
 
