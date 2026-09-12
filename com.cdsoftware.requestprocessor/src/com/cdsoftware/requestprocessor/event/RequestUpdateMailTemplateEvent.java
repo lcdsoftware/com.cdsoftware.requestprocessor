@@ -1,14 +1,19 @@
 package com.cdsoftware.requestprocessor.event;
 
+import java.util.Properties;
+
 import static org.compiere.model.SystemIDs.MESSAGE_REQUESTUPDATE;
 
 import org.adempiere.base.annotation.EventTopicDelegate;
+import org.adempiere.base.event.IEventManager;
 import org.adempiere.base.event.RequestSendEMailEventData;
 import org.adempiere.base.event.annotations.RequestSendEmailEventDelegate;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MNote;
 import org.compiere.model.MMessage;
 import org.compiere.model.MRequest;
+import org.compiere.model.MUser;
 import org.compiere.model.X_R_Request;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -45,9 +50,18 @@ public class RequestUpdateMailTemplateEvent extends RequestSendEmailEventDelegat
 			return;
 		}
 
-		mailText.setPO(request, true);
+		mailText.setPO(request, false);
 		mailText.setUser(eventData.getTo().getAD_User_ID());
-		mailText.setLanguage(eventData.getClient().getAD_Language());
+		String language = getMailTextLanguage(eventData);
+		log.warning("RequestUpdated mail language=" + language
+			+ ", recipientBPartnerLanguage=" + getRecipientBPartnerLanguage(eventData.getTo())
+			+ ", eventContextLanguage=" + getEventContextLanguage()
+			+ ", contextLanguage=" + Env.getContext(Env.getCtx(), Env.LANGUAGE)
+			+ ", clientLanguage=" + eventData.getClient().getAD_Language()
+			+ ", mailTextId=" + mailText.getR_MailText_ID()
+			+ ", requestId=" + request.getR_Request_ID());
+		mailText.setLanguage(language);
+		mailText.setRequestVariables(request);
 		setVariables(mailText, eventData);
 
 		String subject = mailText.getMailHeader();
@@ -73,6 +87,38 @@ public class RequestUpdateMailTemplateEvent extends RequestSendEmailEventDelegat
 			return null;
 
 		return mailText;
+	}
+
+	private String getMailTextLanguage(RequestSendEMailEventData eventData) {
+		String language = getEventContextLanguage();
+		if (!Util.isEmpty(language, true))
+			return language;
+
+		language = getRecipientBPartnerLanguage(eventData.getTo());
+		if (!Util.isEmpty(language, true))
+			return language;
+
+		language = Env.getContext(Env.getCtx(), Env.LANGUAGE);
+		if (!Util.isEmpty(language, true))
+			return language;
+
+		return eventData.getClient().getAD_Language();
+	}
+
+	private String getEventContextLanguage() {
+		Object eventContext = getEvent().getProperty(IEventManager.EVENT_CONTEXT);
+		if (!(eventContext instanceof Properties))
+			return null;
+
+		return Env.getContext((Properties) eventContext, Env.LANGUAGE);
+	}
+
+	private String getRecipientBPartnerLanguage(MUser recipient) {
+		if (recipient == null || recipient.getC_BPartner_ID() <= 0)
+			return null;
+
+		MBPartner bpartner = new MBPartner(Env.getCtx(), recipient.getC_BPartner_ID(), null);
+		return bpartner.getAD_Language();
 	}
 
 	private void setVariables(CDSMailText mailText, RequestSendEMailEventData eventData) {
