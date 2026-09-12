@@ -12,7 +12,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for CDS_RequestMailTemplate
  *  @author iDempiere (generated)
- *  @version Release 13 - $Id$
+ *  @version Release 12 - $Id$
  */
 @org.adempiere.base.Model(table="CDS_RequestMailTemplate")
 public class X_CDS_RequestMailTemplate extends PO implements I_CDS_RequestMailTemplate, I_Persistent
