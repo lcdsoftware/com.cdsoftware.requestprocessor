@@ -6,7 +6,7 @@
 
 ## Description
 
-`com.cdsoftware.requestprocessor` is an iDempiere 12 backend plugin that customizes automatic Request Processor email notifications. It replaces the standard `RequestProcessor` server factory with a higher-ranked OSGi service, resolves configurable `R_MailText` templates per request event, supports HTML email templates, and preserves the native iDempiere email behavior as a fallback.
+`com.cdsoftware.requestprocessor` is an iDempiere 13 backend plugin that customizes automatic Request Processor email notifications. It replaces the standard `RequestProcessor` server factory with a higher-ranked OSGi service, resolves configurable `R_MailText` templates per request event, supports HTML email templates, and preserves the native iDempiere email behavior as a fallback.
 
 ## Contributors
 
@@ -20,7 +20,7 @@
 ## Prerequisites
 
 - Java 17, commands `java` and `javac`.
-- iDempiere 12.0.0
+- iDempiere 13.0.0
 
 ## Features/Documentation
 
@@ -185,7 +185,7 @@ Templates use standard `R_MailText` variables. Because the plugin sets the reque
 
 ## Instructions
 
-1. Install or deploy the `com.cdsoftware.requestprocessor` OSGi bundle in iDempiere 12.
+1. Install or deploy the `com.cdsoftware.requestprocessor` OSGi bundle in iDempiere 13.
 2. Import `META-INF/2Pack_1.0.0.zip` to create the `CDS_RequestMailTemplate` table, window, menu entry, event code list values, translations, and default `R_MailText` records.
 3. Create or review the `R_MailText` records that should be used for request notifications.
 4. Create active `CDS_RequestMailTemplate` records for each event that should use a custom template.

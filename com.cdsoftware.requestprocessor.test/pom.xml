@@ -9,7 +9,7 @@
 		<relativePath>../../../sources/idempiere/org.idempiere.parent/pom.xml</relativePath>
 	</parent>
         <properties>
-		<revision>12.0.0-SNAPSHOT</revision>
+		<revision>13.0.0-SNAPSHOT</revision>
         </properties>
 	<artifactId>com.cdsoftware.requestprocessor.test</artifactId>
 	<packaging>eclipse-plugin</packaging>

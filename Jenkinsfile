@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         PLUGIN_NAME = "com.cdsoftware.requestprocessor"
-        IDEMPIERE_VERSION = "12.0.0"
+        IDEMPIERE_VERSION = "13.0.0"
     }
 
     stages {
@@ -47,14 +47,14 @@ pipeline {
         stage('Compile') {
             agent {
                 docker {
-                    image 'carl0jgr/idempiere-source-builder:12'
+                    image 'carl0jgr/idempiere-source-builder:13'
                     args '--entrypoint=\'\' -u root:root -v /var/jenkins_home/.m2:/root/.m2'
                 }
             }
 
             steps {
                 dir('target-platform') {
-                    git branch: '12.0', url: 'https://github.com/ingeint/idempiere-target-platform-plugin.git'
+                    git branch: '13.0', url: 'https://github.com/ingeint/idempiere-target-platform-plugin.git'
 
                     sh './plugin-builder build ../${PLUGIN_NAME} ../${PLUGIN_NAME}.test'
 

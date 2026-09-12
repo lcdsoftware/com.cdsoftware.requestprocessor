@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.cdsoftware.requestprocessor Test
 Bundle-SymbolicName: com.cdsoftware.requestprocessor.test
-Bundle-Version: 12.0.0.qualifier
+Bundle-Version: 13.0.0.qualifier
 Bundle-Vendor: cdsoftware
 Fragment-Host: com.cdsoftware.requestprocessor
 Bundle-ClassPath: .,
