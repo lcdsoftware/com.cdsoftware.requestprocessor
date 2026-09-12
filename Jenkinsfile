@@ -47,7 +47,7 @@ pipeline {
         stage('Compile') {
             agent {
                 docker {
-                    image 'carl0jgr/idempiere-source-builder:13'
+                    image 'idempiereofficial/idempiere:source-release-13.0'
                     args '--entrypoint=\'\' -u root:root -v /var/jenkins_home/.m2:/root/.m2'
                 }
             }
