@@ -4,11 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.compiere.model.MBPartner;
 import org.compiere.model.MRequest;
 import org.compiere.model.MRequestProcessor;
 import org.compiere.model.MUser;
 import org.compiere.server.RequestProcessor;
 import org.compiere.util.CLogger;
+import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Util;
 
@@ -89,9 +91,10 @@ public class CDSRequestProcessor extends RequestProcessor {
         if (mailText.is_new())
             return null;
 
-        mailText.setPO(request, true);
+        mailText.setPO(request, false);
         mailText.setUser(recipientId);
-        mailText.setLanguage(m_client.getAD_Language());
+        mailText.setLanguage(getMailTextLanguage(recipientId));
+        mailText.setRequestVariables(request);
 
         String subject = mailText.getMailHeader();
         String message = mailText.getMailText(true);
@@ -111,5 +114,26 @@ public class CDSRequestProcessor extends RequestProcessor {
             attachments,
             mailText.isHtml()
         );
+    }
+
+    private String getMailTextLanguage(int recipientId) {
+        String language = getRecipientBPartnerLanguage(recipientId);
+        if (!Util.isEmpty(language, true))
+            return language;
+
+        language = Env.getContext(getCtx(), Env.LANGUAGE);
+        if (!Util.isEmpty(language, true))
+            return language;
+
+        return m_client.getAD_Language();
+    }
+
+    private String getRecipientBPartnerLanguage(int recipientId) {
+        MUser recipient = MUser.get(getCtx(), recipientId);
+        if (recipient == null || recipient.getC_BPartner_ID() <= 0)
+            return null;
+
+        MBPartner bpartner = new MBPartner(getCtx(), recipient.getC_BPartner_ID(), null);
+        return bpartner.getAD_Language();
     }
 }
