@@ -11,6 +11,7 @@
 ## Contributors
 
 - 2024 cdsoftware and contributors.
+- 2026 Angel Lara <angel@casadelsoftware.com>.
 
 ## Components
 
